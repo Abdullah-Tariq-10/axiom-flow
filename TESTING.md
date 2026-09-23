@@ -41,10 +41,18 @@ node scripts/test-engine.mjs
 
 ### 1. Dead Worker Duration Normalization
 
-* **Issue:** Stale execution records abandoned in `running` state prior to running the sweeper calculated multi-day elapsed durations ($\approx 423,000\text{s}$) when `reconcileStaleExecutions()` stamped `finished_at = datetime('now')`.
+* **Issue:** Stale execution records abandoned in `running` state prior to running the sweeper calculated multi-day elapsed durations (~423,000s) when `reconcileStaleExecutions()` stamped `finished_at = datetime('now')`.
 * **Resolution:** Updated `reconcileStaleExecutions()` in `src/lib/executionRuntime.ts` to backdate `finished_at` relative to the last recorded step activity plus the 120-second lease threshold:
 
-$$\text{finished\_at} = \text{COALESCE}(\max(\text{steps.finished\_at}), \text{created\_at}) + 120\text{ seconds}$$
+```sql
+finished_at = datetime(
+  COALESCE(
+    (SELECT MAX(COALESCE(finished_at, started_at)) FROM execution_steps WHERE execution_id = executions.id),
+    created_at
+  ),
+  '+120 seconds'
+)
+```
 
 This models distributed worker lease expiration cleanly without poisoning historical latency metrics.
 
