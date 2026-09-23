@@ -103,7 +103,7 @@ These manual checks verify UI state handling, React Flow canvas behaviors, and r
 
   # Output: HTTP 404 Not Found
 
-* **Differential Verification:** The 8 literals match the exact column count of the executions table[cite: 4]. If naive string concatenation had been used, SQLite would have evaluated the union and returned a synthetic row (200 OK). The 404 Not Found response proves SQLite treated the injection string strictly as an uncompiled literal parameter.
+* **Differential Verification:** The 8 literals match the exact column count of the executions table. If naive string concatenation had been used, SQLite would have evaluated the union and returned a synthetic row (200 OK). The 404 Not Found response proves SQLite treated the injection string strictly as an uncompiled literal parameter.
 
 ### 2. Secret Redaction
 
