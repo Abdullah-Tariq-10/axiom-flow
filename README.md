@@ -1,6 +1,6 @@
-# Durable AI Decision & Workflow Orchestration Engine
+# axiom-flow
 
-A distributed, fault-tolerant workflow engine designed to execute, route, and observe multi-step LLM decisions and terminal actions across arbitrary Directed Acyclic Graphs (DAGs). Built with **Next.js 16 (App Router)**, **Inngest v3**, **TypeScript**, and **SQLite (WAL mode)**.
+A distributed, fault-tolerant execution runtime designed to compile, route, and observe multi-step LLM decisions and terminal actions across arbitrary Directed Acyclic Graphs (DAGs). Built with **Next.js 16 (App Router)**, **Inngest v3**, **TypeScript**, and **SQLite (WAL mode)** — featuring durable step memoization, O(V) cycle guards, and millisecond telemetry.
 
 ---
 
